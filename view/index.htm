@@ -13,7 +13,7 @@
 		
 		$(function () {
 			var colors = [
-						   '#1aadce', 
+						   '#c42525', 
 						   '#8bbc21',
 						   '#2f7ed8',
 						   '#0d233a', 
@@ -21,8 +21,8 @@
 						   '#492970',
 						   '#f28f43', 
 						   '#77a1e5', 
-						   '#910000', 
-						   '#c42525'
+						   '#1aadce', 
+						   '#910000'
 						],
 				categories = [<?php foreach($device_array as $device){echo "'".$device."',";} ?>],
 				name = 'Device type',
@@ -65,17 +65,14 @@
 					type: 'column'
 				},
 				title: {
-					text: 'Browser market share, April, 2011'
-				},
-				subtitle: {
-					text: 'Click the columns to view versions. Click again to view brands.'
+					text: 'Market share chart'
 				},
 				xAxis: {
 					categories: categories
 				},
 				yAxis: {
 					title: {
-						text: 'Total percent market share'
+						text: 'Total number/percent'
 					}
 				},
 				plotOptions: {
@@ -108,9 +105,9 @@
 				tooltip: {
 					formatter: function() {
 						var point = this.point,
-						s = this.x +': <b>'+ ((this.y/total)*100).toFixed(2) +'%</b> market share<br/>';
+						s = ((this.y/total)*100).toFixed(2) +'%';
 						if (!point.drilldown) {	
-							s = this.x +': <b>'+ this.y +'%</b> market share<br/>';
+							s = this.y;
 						}
 						return s;
 					}
@@ -126,8 +123,6 @@
 			})
 			.highcharts(); // return chart
 		});
-    
-
 		</script>
 	</head>
 	<body>
