@@ -10,7 +10,11 @@
 		<script type="text/javascript" src="<?php echo HOST;?>/view/js/jquery-1.10.1.min.js"></script>
 		<script type="text/javascript">
 		var total = <?php echo $total_device['total']; ?>;
-		
+		var total_device = [];
+		<?php foreach($device_array as $device) { 
+				echo "total_device['".$device."']=".$total_device[$device]['total'].";";
+			} 
+		?>
 		$(function () {
 			var colors = [
 						   '#c42525', 
@@ -33,7 +37,7 @@
 									y:".$total_device[$device]['total'].",
 									color:colors[".$key."],
 									drilldown:{
-										name: 'Servers',
+										name:'".$device."',
 										categories:[";
 											foreach($server_array as $server){echo "'".$server."',";}
 										echo "],
@@ -67,12 +71,15 @@
 				title: {
 					text: 'Market share chart'
 				},
+				subtitle: {
+					text: 'Click the columns to view servers. Click again to view devices.'
+				},
 				xAxis: {
 					categories: categories
 				},
 				yAxis: {
 					title: {
-						text: 'Total number/percent'
+						text: 'Total device number/percent'
 					}
 				},
 				plotOptions: {
@@ -107,7 +114,7 @@
 						var point = this.point,
 						s = ((this.y/total)*100).toFixed(2) +'%';
 						if (!point.drilldown) {	
-							s = this.y;
+							s = ((this.y/total_device[this.series.name])*100).toFixed(2) +'%';
 						}
 						return s;
 					}
